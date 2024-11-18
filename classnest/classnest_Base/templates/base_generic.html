@@ -27,8 +27,18 @@
             ClassNest
           </div>
           <nav class="nav-links">
-            <a href="{% url 'login' %}">Login</a>
-            <a href="{% url 'register' %}">Register</a>
+            <ul>
+              <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+              <li><a href="{% url 'courses' %}">Courses</a></li>
+              <li><a href="{% url 'ai_quiz_generator' %}">AI Quiz Generator</a></li>
+              <li><a href="{% url 'settings' %}">Settings</a></li>
+      
+              <!-- Add Profile Link -->
+              <li><a href="{% url 'profile' %}">{{ request.user.email }}</a></li>
+      
+              <!-- Logout Link -->
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
           </nav>
         </div>
       </header>

@@ -1,0 +1,122 @@
+/* Profile Page Styling */
+
+/* General body styling */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Profile container */
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile header */
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h1 {
+    color: #4a00e0;
+    font-size: 2rem;
+}
+
+.profile-header p {
+    color: #666666;
+}
+
+/* Profile form */
+.profile-form .form-group {
+    margin-bottom: 20px;
+}
+
+.profile-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.profile-form input,
+.profile-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.profile-form textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+/* Buttons */
+.profile-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #4a00e0;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3700b3; /* Darker shade on hover */
+}
+
+.btn-warning {
+    background-color: #f0ad4e; /* Warning button (for password reset) */
+}
+
+.btn-warning:hover {
+    background-color: #ec971f; /* Darker warning button on hover */
+}
+
+.btn-danger {
+    background-color: #d9534f; /* Danger button (for logout) */
+}
+
+.btn-danger:hover {
+    background-color: #c9302c; /* Darker danger button on hover */
+}
+
+/* Profile picture styling */
+.profile-picture-container {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-picture-container img {
+    width: 120px; /* Adjust size as needed */
+    height: 120px; /* Adjust size as needed */
+    border-radius: 50%; /* Make it circular */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    
+    .profile-container {
+        padding: 20px; /* Reduce padding on smaller screens */
+        max-width: 100%;
+        box-shadow:none; /* Remove shadow on smaller screens for simplicity */
+        border-radius:none ;
+        
+     }
+    
+     .profile-actions{
+         flex-direction :column ;
+         gap :10 px ;}
+}

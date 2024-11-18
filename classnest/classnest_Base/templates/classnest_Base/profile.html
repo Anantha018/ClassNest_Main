@@ -1,0 +1,21 @@
+{% extends "classnest_Base/base_generic.html" %}
+
+{% block content %}
+<div class="profile-container">
+  <h1>{{ user.username }}'s Profile</h1>
+
+  <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+          {{ u_form.as_p }}
+          {{ p_form.as_p }}
+      </div>
+      <button type="submit" class="btn btn-primary">Update Profile</button>
+  </form>
+
+  <div class="profile-actions">
+      <a href="{% url 'reset_password' %}" class="btn btn-warning">Reset Password</a>
+      <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+  </div>
+</div>
+{% endblock %}

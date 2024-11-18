@@ -9,6 +9,18 @@ from django.http import HttpResponseForbidden
 from django.contrib.auth.models import Group
 from django.contrib import messages
 
+from django.contrib.auth import update_session_auth_hash, logout as auth_logout
+from .forms import UserUpdateForm, ProfileUpdateForm, PasswordResetForm
+
+
+# classNest/views.py
+from django.shortcuts import redirect
+
+def home(request):
+    return redirect('dashboard')  # Redirect to dashboard page
+
+
+
 # Create groups if they don’t already exist
 def create_user_groups():
     Group.objects.get_or_create(name='Student')
@@ -84,6 +96,8 @@ def course_detail_view(request, course_id):
         'course': course,
         'is_instructor': is_instructor
     })
+
+
     
 @login_required
 def delete_course_view(request, course_id):
@@ -97,4 +111,47 @@ def delete_course_view(request, course_id):
         return redirect('courses')
     else:
         # If the user is not authorized, return a forbidden response
-        return HttpResponseForbidden("You are not allowed to delete this course.")
+        return HttpResponseForbidden("You are not allowed to delete this course.")  
+
+
+#profile
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+        
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form,
+    }
+    
+    return render(request, 'classnest_Base/profile.html', context)
+
+@login_required
+def reset_password(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            new_password1 = form.cleaned_data.get('new_password1')
+            request.user.set_password(new_password1)
+            request.user.save()
+            update_session_auth_hash(request, request.user)  # Keeps user logged in after password change
+            return redirect('profile')
+    else:
+        form = PasswordResetForm()
+
+    return render(request, 'classnest_Base/password_change.html', {'form': form})
+
+@login_required
+def logout_view(request):
+    auth_logout(request)
+    return redirect('login')
