@@ -7,6 +7,7 @@
   {% load static %}
   <link rel="stylesheet" href="{% static 'classnest_Base/css/dashboard_styles.css' %}">
   <link rel="stylesheet" href="{% static 'classnest_Base/css/courses.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <!-- Navbar -->
@@ -20,13 +21,14 @@
       <nav class="nav-links">
         <a href="{% url 'dashboard' %}">Dashboard</a>
         <a href="{% url 'courses' %}">Courses</a>
+        <a href="{% url 'discussions' %}" id="discussionsLink"><i class="fas fa-comments"></i> Discussions</a>
         {% if is_instructor %}
           <a href="{% url 'create-course' %}" class="create-course-btn">
             <i class="icon-plus"></i> Create Course
           </a>
         {% endif %}
-        
         <a href="#">AI Quiz Generator</a>
+        <a href="{% url 'inbox' %}" id="inboxLink"><i class="fas fa-inbox"></i> Inbox</a>
         <a href="#">Settings</a>
         {% comment %} <a href="{% url 'password_change' %}">Change Password</a> {% endcomment %}
         <span class="user-info">{{ request.user.username }}</span>

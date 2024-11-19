@@ -11,6 +11,28 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+    
+
+class Discussion(models.Model):
+    course = models.CharField(max_length=200)
+    title = models.TextField()
+    content = models.TextField()
+    instructor = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)  # Automatically set the field to now when the object is created
+
+    def __str__(self):
+        return self.title
+    
+
+class Inbox(models.Model):
+    to = models.CharField(max_length=200)
+    subject = models.TextField()
+    message = models.TextField()
+    instructor = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)  # Automatically set the field to now when the object is created
+
+    def __str__(self):
+        return self.title
 
 
 class Profile(models.Model):
