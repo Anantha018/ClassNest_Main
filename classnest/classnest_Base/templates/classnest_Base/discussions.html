@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ClassNest Dashboard</title>
   {% load static %}
-  <link rel="stylesheet" href="{% static 'classnest_Base/css/dashboard_styles.css' %}">
+  <link rel="stylesheet" href="{% static 'classnest_Base/css/discussion.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+  <!-- Navbar -->
   <header class="navbar">
     <div class="navbar-container">
       <div class="logo">
@@ -38,7 +39,42 @@
       </nav>
     </div>
   </header>
-  <!-- Main Content -->
+ <!-- Main Content -->
+ <main class="container">
+  <div class="discussions-header">
+    <h1>Course Discussions</h1>
+    <a href="{% url 'create-discussion' %}" class="compose-btn"> + New Discussion</a>
+  </div>
+
+  <div class="search-bar">
+    <input type="text" placeholder="Search discussions...">
+    <select>
+      <option>All Courses</option>
+      {% for course in courses %}
+        <option value="{{ course }}">{{ course }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  {% if discussions %}
+    {% for discussion in discussions %}
+      <div class="discussion-card">
+        <h3>{{ discussion.title }}</h3>
+        <p class="meta">Posted by {{ discussion.instructor.username }} on {{ discussion.created_at|date:"M d, Y" }}</p>
+        <p>{{ discussion.content|truncatechars:150 }}</p>
+        <div class="discussion-actions">
+          <a href="{% url 'discussion-detail' discussion_id=discussion.id %}" class="view-btn">View</a>
+          <form action="{% url 'delete-discussion' discussion_id=discussion.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="delete-btn">Delete</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No discussions available. Create one now!</p>
+  {% endif %}
+</main>
   <script src="{% static 'classnest_Base/js/dashboard_script.js' %}"></script>
 </body>
 </html>
