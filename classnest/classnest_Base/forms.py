@@ -1,17 +1,19 @@
 # classnest_Base/forms.py
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 from .models import Profile
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email']
-
+        fields = ['username']  # Include email if needed
+        
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['bio', 'contact', 'links']
+        fields = ['contact', 'github', 'linkedin']
+# Use Django's built-in PasswordChangeForm
 
 class PasswordResetForm(forms.Form):
     new_password1 = forms.CharField(widget=forms.PasswordInput(), label="New Password")

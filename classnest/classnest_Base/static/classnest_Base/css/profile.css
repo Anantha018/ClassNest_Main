@@ -1,122 +1,180 @@
-/* Profile Page Styling */
+To add the hover effect for the "ClassNest" text and logo, and change the font color on hover, you can update the CSS as follows:
 
+### Updated CSS
+```css
 /* General body styling */
 body {
-    background-color: #f5f5f5;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
 }
 
-/* Profile container */
-.profile-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
 }
 
-/* Profile header */
-.profile-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.profile-header h1 {
-    color: #4a00e0;
-    font-size: 2rem;
-}
-
-.profile-header p {
-    color: #666666;
-}
-
-/* Profile form */
-.profile-form .form-group {
-    margin-bottom: 20px;
-}
-
-.profile-form label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.profile-form input,
-.profile-form textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.profile-form textarea {
-    resize: vertical; /* Allow vertical resizing */
-}
-
-/* Buttons */
-.profile-actions {
+/* Navbar styling */
+.navbar {
+    background-color: #4A90E2;
+    padding: 15px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.logo img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.logo a:hover {
+    background-color: #0e3358;
+    border-radius: 6px;
+    color: #ffcc00; /* Change font color on hover */
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    margin: 0 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    background-color: #0e3358;
+}
+
+.nav-links .logout-btn {
+    background-color: #d9534f;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.nav-links .logout-btn:hover {
+    background-color: #c9302c;
+}
+
+/* Main content styling */
+.main-content {
+    padding: 20px;
     margin-top: 20px;
 }
 
-.btn {
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
+.profile-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+body.dark-mode .profile-container {
+    background-color: #1E1E1E;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.theme-toggle h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#theme-toggle-btn {
+    padding: 10px;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-.btn-primary {
-    background-color: #4a00e0;
+/* Profile sections */
+.profile-section {
+    margin-bottom: 20px;
+}
+
+.profile-section h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #b45f06;
+    margin-bottom: 10px;
+}
+
+.profile-section label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.profile-section input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.save-btn {
+    padding: 15px;
+    background-color: #4A90E2;
     color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
-.btn-primary:hover {
-    background-color: #3700b3; /* Darker shade on hover */
+.save-btn:hover {
+    background-color: #0e3358;
 }
 
-.btn-warning {
-    background-color: #f0ad4e; /* Warning button (for password reset) */
-}
-
-.btn-warning:hover {
-    background-color: #ec971f; /* Darker warning button on hover */
-}
-
-.btn-danger {
-    background-color: #d9534f; /* Danger button (for logout) */
-}
-
-.btn-danger:hover {
-    background-color: #c9302c; /* Darker danger button on hover */
-}
-
-/* Profile picture styling */
-.profile-picture-container {
-    display: flex;
-    justify-content: center;
-}
-
-.profile-picture-container img {
-    width: 120px; /* Adjust size as needed */
-    height: 120px; /* Adjust size as needed */
-    border-radius: 50%; /* Make it circular */
-}
-
-/* Responsive design for smaller screens */
+/* Responsive Design */
 @media (max-width: 768px) {
-    
     .profile-container {
-        padding: 20px; /* Reduce padding on smaller screens */
+        padding: 20px;
         max-width: 100%;
-        box-shadow:none; /* Remove shadow on smaller screens for simplicity */
-        border-radius:none ;
-        
-     }
-    
-     .profile-actions{
-         flex-direction :column ;
-         gap :10 px ;}
+    }
 }

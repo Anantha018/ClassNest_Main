@@ -11,7 +11,10 @@ from django.contrib import messages
 
 from django.contrib.auth import update_session_auth_hash, logout as auth_logout
 from .forms import UserUpdateForm, ProfileUpdateForm, PasswordResetForm
-
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm  # Import from Django's auth system
+from .forms import UserUpdateForm, ProfileUpdateForm
 
 # classNest/views.py
 from django.shortcuts import redirect
@@ -134,6 +137,32 @@ def profile(request):
         'p_form': p_form,
     }
     
+    return render(request, 'classnest_Base/profile.html', context)
+
+@login_required
+def profile_view(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+        password_form = PasswordChangeForm(request.user, request.POST)
+
+        if u_form.is_valid() and p_form.is_valid() and password_form.is_valid():
+            u_form.save()
+            p_form.save()
+            password_form.save()
+            return redirect('profile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+        password_form = PasswordChangeForm(request.user)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form,
+        'password_form': password_form,
+    }
+
     return render(request, 'classnest_Base/profile.html', context)
 
 @login_required

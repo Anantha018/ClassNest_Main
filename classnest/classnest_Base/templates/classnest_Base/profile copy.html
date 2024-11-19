@@ -1,12 +1,15 @@
+
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Courses - ClassNest</title>
+  <title>Profile - ClassNest</title>
   {% load static %}
   <link rel="stylesheet" href="{% static 'classnest_Base/css/dashboard_styles.css' %}">
-  <link rel="stylesheet" href="{% static 'classnest_Base/css/courses.css' %}">
+  <link rel="stylesheet" href="{% static 'classnest_Base/css/profile.css' %}">
 </head>
 <body>
   <!-- Navbar -->
@@ -16,7 +19,7 @@
         <img src="{% static 'classnest_Base/img/app_icon.png' %}" alt="Logo Icon" class="logo-icon">
         ClassNest
       </div>
-      
+     
       <nav class="nav-links">
         <a href="{% url 'dashboard' %}">Dashboard</a>
         <a href="{% url 'courses' %}">Courses</a>
@@ -30,8 +33,9 @@
         <a href="#">Settings</a>
         {% comment %} <a href="{% url 'password_change' %}">Change Password</a> {% endcomment %}
         <span class="user-info">{{ request.user.username }}</span>
-        <!-- Logout Form -->
+        <!-- Profile Link -->
         <a href="{% url 'profile' %}"> Profile</a>
+        <!-- Logout Form -->
         <form action="{% url 'logout' %}" method="post" style="display: inline;">
           {% csrf_token %}
           <button type="submit" class="logout-btn">Logout</button>
@@ -40,27 +44,28 @@
     </div>
   </header>
 
-  <!-- Main Content -->
-  <div class="courses-container">
-    <h2>Courses</h2>
-    <div class="courses-grid">
-        {% for course in courses %}
-        <a href="{% url 'course-detail' course.id %}" class="course-card-link">
-            <div class="course-card">
-                <img src="{{ course.thumbnail.url }}" alt="Course Thumbnail" class="course-thumbnail">
-                <h3 class="course-title">{{ course.title }}</h3>
-                <p class="course-description">{{ course.description }}</p>
-                <p>Instructor: {{ course.instructor.username }}</p>
-                <p>Created At: {{ course.created_at|date:"M d, Y" }}</p>
-            </div>
-        </a>
-        {% empty %}
-            <p>No courses available.</p>
-        {% endfor %}
+  <!-- Profile Content -->
+  <div class="profile-container">
+    <h1>{{ user.username }}'s Profile</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+          {{ u_form.as_p }}
+          {{ p_form.as_p }}
+      </div>
+      <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+
+    <div class="profile-actions">
+      <a href="{% url 'reset_password' %}" class="btn btn-warning">Reset Password</a>
+      <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
     </div>
   </div>
 
-
+  <!-- Optional: Include any additional scripts -->
   <script src="{% static 'classnest_Base/js/dashboard_script.js' %}"></script>
 </body>
 </html>
+
+{% endblock %}

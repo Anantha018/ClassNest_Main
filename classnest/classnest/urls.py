@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import profile_view
+from classnest_Base.views import profile_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),

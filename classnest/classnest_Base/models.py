@@ -19,11 +19,20 @@ class Profile(models.Model):
         ('instructor', 'Instructor'),
     )
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
-    bio = models.TextField(max_length=500, blank=True)
-    contact = models.CharField(max_length=100, blank=True)
-    links = models.URLField(blank=True)
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
+    # bio = models.TextField(max_length=500, blank=True)
+    # contact = models.CharField(max_length=100, blank=True)
+    # links = models.URLField(blank=True)
 
+    # def __str__(self):
+    #     return f"{self.user.username} - {self.user_type}"
+    
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    contact = models.CharField(max_length=100, blank=True)
+    github = models.URLField(blank=True)  # GitHub field
+    linkedin = models.URLField(blank=True)  # LinkedIn field
+    
     def __str__(self):
-        return f"{self.user.username} - {self.user_type}"
+        return f'{self.user.username} Profile'
