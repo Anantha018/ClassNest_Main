@@ -73,7 +73,6 @@ body.dark-mode {
 .nav-links a:hover {
     background-color: #0e3358;
 }
-
 .nav-links .logout-btn {
     background-color: #d9534f;
     color: white;
@@ -88,7 +87,7 @@ body.dark-mode {
     background-color: #c9302c;
 }
 
-/* Main content styling */
+/* Main content styling in a new way*/
 .main-content {
     padding: 20px;
     margin-top: 20px;
