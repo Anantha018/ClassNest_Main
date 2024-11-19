@@ -22,8 +22,8 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
-    created_at = models.DateTimeField(default=timezone.now, auto_now_add=True)
+    #user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
+    #created_at = models.DateTimeField(default=timezone.now, auto_now_add=True)
     contact = models.CharField(max_length=100, blank=True)
     github = models.URLField(blank=True)  # GitHub field
     linkedin = models.URLField(blank=True)  # LinkedIn field
