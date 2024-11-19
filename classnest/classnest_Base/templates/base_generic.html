@@ -1,0 +1,53 @@
+{% load custom_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}ClassNest{% endblock %}</title>
+  
+  <link rel="stylesheet" href="{% static 'classnest_Base/css/dashboard_styles.css' %}">
+  <link rel="stylesheet" href="{% static 'classnest_Base/css/login.css' %}">
+  <link rel="stylesheet" href="{% static 'classnest_Base/css/register.css' %}">
+  <link rel="stylesheet" href="{% static 'classnest_Base/css/password_change.css' %}">
+  <link rel="stylesheet" href="{% static 'classnest_Base/css/password_change_done.css' %}">
+
+  <link rel="stylesheet" href="{% static 'classnest_Base/css/profile.css' %}">
+  
+
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+          <div class="logo">
+            <!-- Add the image icon beside the "ClassNest" text -->
+            <img src="{% static 'classnest_Base/img/app_icon.png' %}" alt="Logo Icon" class="logo-icon">
+            ClassNest
+          </div>
+          <nav class="nav-links">
+            <ul>
+              <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+              <li><a href="{% url 'courses' %}">Courses</a></li>
+              {% comment %} <li><a href="{% url 'ai_quiz_generator' %}">AI Quiz Generator</a></li> {% endcomment %}
+              <li><a href="{% url 'settings' %}">Settings</a></li>
+      
+              <!-- Add Profile Link -->
+              <li><a href="{% url 'profile' %}">{{ request.user.email }}</a></li>
+      
+              <!-- Logout Link -->
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{% static 'classnest_Base/js/dashboard_script.js' %}"></script>
+</body>
+</html>

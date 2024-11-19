@@ -25,12 +25,13 @@
             <i class="icon-plus"></i> Create Course
           </a>
         {% endif %}
-        
+       
         <a href="#">AI Quiz Generator</a>
         <a href="#">Settings</a>
         {% comment %} <a href="{% url 'password_change' %}">Change Password</a> {% endcomment %}
         <span class="user-info">{{ request.user.username }}</span>
         <!-- Logout Form -->
+        <a href="{% url 'profile' %}"> Profile</a>
         <form action="{% url 'logout' %}" method="post" style="display: inline;">
           {% csrf_token %}
           <button type="submit" class="logout-btn">Logout</button>
