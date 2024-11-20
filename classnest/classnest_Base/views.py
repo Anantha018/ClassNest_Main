@@ -100,6 +100,60 @@ def delete_course_view(request, course_id):
         return HttpResponseForbidden("You are not allowed to delete this course.")
 
 @login_required
+def discussions_view(request):
+
+    # Debugging: Print user and their groups
+    print(f"User: {request.user}")
+    print(f"User groups: {request.user.groups.all()}")
+    # Fetch all discussions, ordered by creation date
+    discussions = Discussion.objects.all().order_by('-created_at')
+    
+    # Extract distinct courses
+    courses = Discussion.objects.values_list('course', flat=True).distinct()
+
+    # Check if the user is an instructor
+    is_instructor = request.user.groups.filter(name='Instructors').exists()
+
+    # Render the discussions page
+    return render(request, 'classnest_Base/discussions.html', {
+        'discussions': discussions,
+        'courses': courses,
+        'is_instructor': is_instructor,
+    })
+
+@login_required
+def create_discussion_view(request):
+    if request.method == "POST":
+        form = DiscussionForm(request.POST)
+        if form.is_valid():
+            course = form.save(commit=False)
+            course.instructor = request.user
+            course.save()
+            return redirect('discussions')  # Redirect to the dashboard or another page after creating the course
+        else:
+            print("Form errors:", form.errors)
+    else:
+        form = CourseForm()  # Initialize an empty form for GET requests
+
+    return render(request, 'classnest_Base/create_discussion.html', {'form': form})
+
+@login_required
+def discussion_detail_view(request, discussion_id):
+    discussion = get_object_or_404(Discussion, id=discussion_id)
+    is_instructor = request.user == discussion.instructor
+    return render(request, 'classnest_Base/discussion_detail.html', {
+        'discussion': discussion,
+        'is_instructor': is_instructor
+    })
+    
+@login_required
+def delete_discussion_view(request, discussion_id):
+    # Delete a specific discussion
+    discussion = get_object_or_404(Discussion, id=discussion_id, instructor=request.user)
+    discussion.delete()
+    return redirect('discussions')
+
+@login_required
 def inbox_view(request):
     # Debugging: Print user and their groups
     print(f"User: {request.user}")
@@ -154,58 +208,3 @@ def delete_inbox_view(request, inbox_id):
     else:
         # If the user is not authorized, return a forbidden response
         return HttpResponseForbidden("You are not allowed to delete this Conversation.")
-    
-
-@login_required
-def discussions_view(request):
-
-    # Debugging: Print user and their groups
-    print(f"User: {request.user}")
-    print(f"User groups: {request.user.groups.all()}")
-    # Fetch all discussions, ordered by creation date
-    discussions = Discussion.objects.all().order_by('-created_at')
-    
-    # Extract distinct courses
-    courses = Discussion.objects.values_list('course', flat=True).distinct()
-
-    # Check if the user is an instructor
-    is_instructor = request.user.groups.filter(name='Instructors').exists()
-
-    # Render the discussions page
-    return render(request, 'classnest_Base/discussions.html', {
-        'discussions': discussions,
-        'courses': courses,
-        'is_instructor': is_instructor,
-    })
-
-@login_required
-def create_discussion_view(request):
-    if request.method == "POST":
-        form = DiscussionForm(request.POST)
-        if form.is_valid():
-            course = form.save(commit=False)
-            course.instructor = request.user
-            course.save()
-            return redirect('discussions')  # Redirect to the dashboard or another page after creating the course
-        else:
-            print("Form errors:", form.errors)
-    else:
-        form = CourseForm()  # Initialize an empty form for GET requests
-
-    return render(request, 'classnest_Base/create_discussion.html', {'form': form})
-
-@login_required
-def discussion_detail_view(request, discussion_id):
-    discussion = get_object_or_404(Discussion, id=discussion_id)
-    is_instructor = request.user == discussion.instructor
-    return render(request, 'classnest_Base/discussion_detail.html', {
-        'discussion': discussion,
-        'is_instructor': is_instructor
-    })
-    
-@login_required
-def delete_discussion_view(request, discussion_id):
-    # Delete a specific discussion
-    discussion = get_object_or_404(Discussion, id=discussion_id, instructor=request.user)
-    discussion.delete()
-    return redirect('discussions')
