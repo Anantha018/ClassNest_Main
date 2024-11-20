@@ -108,8 +108,8 @@ def discussions_view(request):
     # Fetch all discussions, ordered by creation date
     discussions = Discussion.objects.all().order_by('-created_at')
     
-    # Extract distinct courses
-    courses = Discussion.objects.values_list('course', flat=True).distinct()
+    # Fetch distinct course titles
+    courses = Course.objects.values_list('title', flat=True).distinct()
 
     # Check if the user is an instructor
     is_instructor = request.user.groups.filter(name='Instructors').exists()
@@ -175,9 +175,9 @@ def create_inbox_view(request):
     if request.method == "POST":
         form = InboxForm(request.POST)
         if form.is_valid():
-            course = form.save(commit=False)
-            course.instructor = request.user
-            course.save()
+            inbox = form.save(commit=False)
+            inbox.instructor = request.user
+            inbox.save()
             return redirect('inbox')  # Redirect to the dashboard or another page after creating the course
         else:
             print("Form errors:", form.errors)
