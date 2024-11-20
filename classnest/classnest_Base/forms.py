@@ -4,6 +4,16 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import Profile
 
+# classnest_Base/forms.py
+
+from django import forms
+from classnest_Base.models import Course
+
+class CourseForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ['title', 'description']  # Add any other fields you need
+
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User

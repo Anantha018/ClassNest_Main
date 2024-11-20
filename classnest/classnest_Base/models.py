@@ -13,14 +13,11 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
-
-
 class Profile(models.Model):
     USER_TYPE_CHOICES = (
         ('student', 'Student'),
         ('instructor', 'Instructor'),
     )
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     #user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
     #created_at = models.DateTimeField(default=timezone.now, auto_now_add=True)
@@ -30,3 +27,14 @@ class Profile(models.Model):
     
     def __str__(self):
         return f'{self.user.username} Profile'
+
+
+#added for testing
+
+class Quiz(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
