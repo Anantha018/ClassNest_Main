@@ -3,7 +3,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from classnest_Base.models import Course
-from quiz_app.models import Quiz  # Update this import if Quiz is in a different app
+#from quiz_app.models import Quiz  # Update this import if Quiz is in a different app
 
 class CourseModelTest(TestCase):
 

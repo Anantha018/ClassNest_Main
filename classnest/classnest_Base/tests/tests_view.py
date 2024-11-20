@@ -10,29 +10,6 @@ from classnest_Base.models import Course
 #from quiz_app.models import Quiz  # Update this import if Quiz is in a different app
 from classnest_Base.forms import CourseForm
 
-# Model Tests
-class CourseModelTest(TestCase):
-
-    def setUp(self):
-        self.instructor = User.objects.create_user(
-            username='testinstructor',
-            email='instructor@example.com',
-            password='password123'
-        )
-        self.course = Course.objects.create(
-            title='Test Course',
-            description='This is a test course.',
-            instructor=self.instructor
-        )
-
-    def test_course_title(self):
-        self.assertEqual(self.course.title, 'Test Course')
-
-    def test_course_description(self):
-        self.assertEqual(self.course.description, 'This is a test course.')
-
-    def test_course_instructor(self):
-        self.assertEqual(self.course.instructor.username, 'testinstructor')
 
 class QuizModelTest(TestCase):
 
